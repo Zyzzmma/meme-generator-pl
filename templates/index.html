@@ -1,130 +1,93 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-    />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <link rel="stylesheet" href="../static/css/style.css" />
-    <title>Portfolio</title>
-  </head>
-  <body>
-    <header class="header">
-      <nav class="header__nav main-nav">
-        <ul class="main-nav__list main-list">
-          <li class="main-list__item list-item">
-            <a class="list-item__link" href="#home">STRONA DOMOWA</a>
-          </li>
-          <li class="main-list__item list-item">
-            <a class="list-item__link" href="#about">O MNIE</a>
-          </li>
-          <li class="main-list__item list-item">
-            <a class="list-item__link" href="#skills">MOJE UMIEJĘTNOŚCI</a>
-          </li>
-        </ul>
-      </nav>
-    </header>
-    <main class="main">
-      <!-- Preview section -->
-      <section class="main__home home" id="home">
-        <h1 class="home__title">IMIĘ NAZWISKO</h1>
-        <p class="home__subtitle">TWÓRCA WWW, PROGRAMISTA PYTHON</p>
-      </section>
-      <!-- About me section -->
-      <section class="main__about about" id="about">
-        <h2 class="about__title">O MNIE</h2>
-        <div class="about__info info-block">
-          <p class="info-block__text">
-            Informacje o mnie Informacje o mnie Informacje o mnie Informacje o mnie
-            Informacje o mnie Informacje o mnie Informacje o mnie Informacje o mnie 
-            Informacje o mnie
-          </p>
-          <img
-            class="info-block__img"
-            src="../static/img/profile.png"
-            alt="me"
-            width="250"
-            height="250"
-          />
-        </div>
-      </section>
-      <!-- Sekcja umiejętności -->
-      <section class="main__skills skills" id="skills">
-        <h2 class="skills__title">MOJE UMIEJĘTNOŚCI</h2>
-        <form action="/" method="POST">
-          <ul class="skills__list skills-list">
-            <li class="skills-list__skill skill">
-              <img
-                class="skill__img"
-                src="../static/img/python.png"
-                alt="python"
-                width="150"
-                height="150"
-              />
-              <span class="skill__info">Skill info</span>
-              <input class="skill__button" type="submit" name="button_python" value="SHOW PROJECT">
-            </li>
-            <li class="skills-list__skill skill">
-              <img
-                class="skill__img"
-                src="../static/img/discord.png"
-                alt="discord"
-                width="150"
-                height="150"
-              />
-              <span class="skill__info">Informacje o umiejętnościach</span>
-              <input class="skill__button" type="submit" name="button_discord" value="SHOW PROJECT">
-            </li>
-            <li class="skills-list__skill skill">
-              <img
-                class="skill__img"
-                src="../static/img/html.png"
-                alt="html"
-                width="150"
-                height="150"
-              />
-              <span class="skill__info">Informacje o umiejętnościach</span>
-              <input class="skill__button" type="submit" name="button_html" value="SHOW PROJECT">
-            </li>
-            <li class="skills-list__skill skill">
-              <img
-                class="skill__img"
-                src="../static/img/db.webp"
-                alt="SQL"
-                width="150"
-                height="150"
-              />
-              <span class="skill__info">Informacje o umiejętnościach</span>
-              <input class="skill__button" type="submit" name="button_db" value="SHOW PROJECT">
-            </li>
-          </ul>
-        </form>
-        {% if button_python%}
-          <div class="skills__project project" id="project">
-              <img class="project__img" src="../static/img/python-project.png" alt="project" width="500">
-              <a class="project__link" href="">Otwórz w GitHub</a>
-          </div>
-        {% endif %}
-      </section>
-      <!-- Feedback form -->
-      <section class="main__feedback feedback" id="feedback">
-        <h2 class="feedback__title">FEEDBACK</h2>
-        <form action="" method="POST" class="feedback__form form">
-          <label for="email">
-            <input type="email" class="form__input" name="email" id="email" placeholder="Введите E-mail" required>
-          </label>
-          <label for="text">
-            <textarea name="text" class="form__input" id="text" cols="70" rows="10" required placeholder="Comment"></textarea>
-          </label>
-          <button class="form__button" type="submit">WYŚLIJ</button>
-        </form>
-      </section>
-    </main>
-    <!-- Stopka linków do mediów społecznościowych -->
-    <footer>
+<head>
+  <meta charset="UTF-8">
+  <meta
+    name="viewport"
+    content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+  >
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="../static/css/style.css">
+  <title>Generator memów</title>
+</head>
+<body>
+  <header class="header">
+    <img src="../static/img/logo.svg" alt="logo" width="50" height="50">
+    <ul class="main-list">
+        <li class="list__item">
+          <a href="">Strona główna</a>
+        </li>
+        <li class="list__item">
+          <a href="">Kolekcja</a>
+        </li>
+        <li class="list__item">
+          <a href="">Feedback</a>
+        </li>
+    </ul>
+  </header>
+  <main>
+    {% block content %}
+    <div class="form-block">
+      <h1>Wygeneruj swojego mema!</h1>
+      <form method="POST" action="{{ url_for('index') }}">
+        <ul class="form-list">
+          <li class="form-list_item">
+            <label for="image-selector">Wybierz mema</label>
+            <select name="image-selector" id="image-selector">
+              <option value="logo.svg" {% if selected_image == 'logo.svg' %}selected{% endif %}>Wybierz mema</option>
+              <option value="meme_1.jpg" {% if selected_image == 'meme_1.jpg' %}selected{% endif %}>Dziewczyna katastrofa</option>
+              <option value="meme_2.jpg" {% if selected_image == 'meme_2.jpg' %}selected{% endif %}>Dwa przyciski</option>
+              <!--Zadanie nr 1. Dodaj nowe memy tutaj -->
 
-    </footer>
-  </body>
+
+            </select>
+          </li>
+          <li class="form-list_item">
+            <label for="textTop">Wpisz tutaj górny tekst</label>
+            <input class="input_text" type="text" placeholder="Top text" name="textTop">
+          </li>
+          <li class="form-list_item">
+            <label for="textBottom">Wpisz tutaj dolny tekst</label>
+            <input class="input_text" type="text" placeholder="Bottom text" name="textBottom">
+          </li>
+          <li class="form-list_item">
+            <label for="color-selector">Ustaw kolor tekstu</label>
+            <select name="color-selector" id="color-selector">
+              <option value="white" {% if selected_color == 'white' %}selected{% endif %}>Biały</option>
+              <option value="black" {% if selected_color == 'black' %}selected{% endif %}>Czarny</option>
+              <!--Dodaj.zadanie #1. Dodaj nowe kolory tutaj -->
+
+
+            </select>
+          </li>
+          <li class="form-list_item">
+            <label for="textTop_y">Wprowadź położenie górnego tekstu wzdłuż osi Y</label>
+            <input class="input_text" id="textTop_y" type="text" placeholder="Top text" name="textTop_y">
+          </li>
+          <li class="form-list_item">
+            <label for="textBottom_y">Wprowadź położenie dolnego tekstu w poprzek osi Y</label>
+            <input class="input_text" id="textBottom_y" type="text" placeholder="Bottom text" name="textBottom_y">
+          </li>
+          <button type="submit">Wygeneruj mema</button>
+        </ul>
+      </form>
+    </div>
+    <div class="meme-block" id="memeBlock">
+      
+      <p class="text_top" style="<!-- Assignment #3. Moving the variables to CSS -->">
+        <!-- Zadanie #2. Umieszczenie zmiennej z tekstem -->
+      </p>
+
+      <img class="meme" src="{{ url_for('serve_images', path=selected_image) }}" alt="{{ selected_image }}">
+
+      <p class="text_bottom" style="<!-- Assignment #3. Moving the variables to CSS -->">
+        <!-- Zadanie nr 2. Umieszczenie zmiennej z tekstem -->
+      </p>
+    </div>
+    {% endblock %}
+  </main>
+  <footer>
+
+  </footer>
+</body>
 </html>
