@@ -1,22 +1,45 @@
 # Import
-from flask import Flask, render_template,request, redirect
-
+from flask import Flask, render_template, request, send_from_directory
 
 
 app = Flask(__name__)
 
-# Uruchamianie strony z treścią
-@app.route('/')
+# Formularz z rezultatami
+@app.route('/', methods=['GET','POST'])
 def index():
-    return render_template('index.html')
+    if request.method == 'POST':
+        # odczytywanie wybranego obrazka
+        selected_image = request.form.get('image-selector')
+
+        # Zadanie #2. Odczytywanie tekstu
+        
+
+        # Zadanie #3. Odczytywanie pozycji tekstu
+       
+
+        # Zadanie #3. Odczytywanie koloru tekstu
+        
+
+        return render_template('index.html', 
+                               # Wyświetlanie wybranego obrazka
+                               selected_image=selected_image, 
+
+                               # Zadanie #2. Wyświetlanie tekstu
+                               
+
+                               # Zadanie #3. Wyświetlanie koloru
+                               
+                               
+                               # Zadanie #3. Wyświetlanie pozycji tekstu
+
+                               )
+    else:
+        # Wyświetlanie pierwszego obrazka, jako grafika domyślna
+        return render_template('index.html', selected_image='logo.svg')
 
 
-# Umiejętności dynamiczne
-@app.route('/', methods=['POST'])
-def process_form():
-    button_python = request.form.get('button_python')
-    return render_template('index.html', button_python=button_python)
+@app.route('/static/img/<path:path>')
+def serve_images(path):
+    return send_from_directory('static/img', path)
 
-
-if __name__ == "__main__":
-    app.run(debug=True)
+app.run(debug=True)
