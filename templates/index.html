@@ -38,17 +38,17 @@
               <option value="mem_1.jpg" {% if selected_image == 'mem_1.jpg' %}selected{% endif %}>Dziewczynka przy katastrofie</option>
               <option value="mem_2.jpg" {% if selected_image == 'mem_2.jpg' %}selected{% endif %}>Dwa przyciski</option>
               <!--Zadanie #1. Dodaj więcej memów poniżej -->
-
+              <option value="mem_3.jpg" {% if selected_image == 'mem_3.jpg' %}selected{% endif %}>Mem 3</option>
 
             </select>
           </li>
           <li class="form-list_item">
             <label for="textTop">Wprowadź tekst górny</label>
-            <input class="input_text" type="text" placeholder="Tekst górny" name="textTop">
+            <input class="input_text" type="text" placeholder="Tekst górny" name="textTop" value="{{ top_text }}">
           </li>
           <li class="form-list_item">
             <label for="textBottom">Wprowadź tekst dolny</label>
-            <input class="input_text" type="text" placeholder="Tekst dolny" name="textBottom">
+            <input class="input_text" type="text" placeholder="Tekst dolny" name="textBottom" value="{{ bottom_text }}">
           </li>
           <li class="form-list_item">
             <label for="color-selector">Wybierz kolor tekstu</label>
@@ -56,17 +56,17 @@
               <option value="white" {% if selected_color == 'white' %}selected{% endif %}>Bialy</option>
               <option value="black" {% if selected_color == 'black' %}selected{% endif %}>Czarny</option>
               <!--Zadanie dodatkowe #1. Dodaj więcej kolorów poniżej -->
-
+              <option value="red" {% if selected_color == 'red' %}selected{% endif %}>Czerwony</option>
 
             </select>
           </li>
           <li class="form-list_item">
             <label for="textTop_y">Wprowadź pozycję górnego tekstu w osi Y</label>
-            <input class="input_text" id="textTop_y" type="text" placeholder="Tekst górny" name="textTop_y">
+            <input class="input_text" id="textTop_y" type="text" placeholder="Tekst górny" name="textTop_y" value="{{ top_text_y }}">
           </li>
           <li class="form-list_item">
             <label for="textBottom_y">Wprowadź pozycję dolnego tekstu w osi Y</label>
-            <input class="input_text" id="textBottom_y" type="text" placeholder="Tekst dolny" name="textBottom_y">
+            <input class="input_text" id="textBottom_y" type="text" placeholder="Tekst dolny" name="textBottom_y" value="{{ bottom_text_y }}">
           </li>
           <button type="submit">Wygeneruj mema</button>
         </ul>
@@ -74,14 +74,16 @@
     </div>
     <div class="meme-block" id="memeBlock">
       
-      <p class="text_top" style="<!-- Zadanie #3. Przenoszenie zmiennych do CSS -->">
+      <p class="text_top" style="color:{{ selected_color }}; top:{{ top_text_y }}px;">
         <!-- Zadanie #2. Umieszczanie zmiennych z tekstem -->
+         {{ top_text }}
       </p>
 
       <img class="meme" src="{{ url_for('serve_images', path=selected_image) }}" alt="{{ selected_image }}">
 
-      <p class="text_bottom" style="<!-- Zadanie #3. Przenoszenie zmiennych do CSS -->">
+      <p class="text_bottom" style="color:{{ selected_color }}; bottom:{{ bottom_text_y }}px;">
         <!-- Zadanie #2. Umieszczanie zmiennych z tekstem -->
+         {{ bottom_text }}
       </p>
     </div>
     {% endblock %}
